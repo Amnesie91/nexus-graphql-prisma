@@ -1,0 +1,47 @@
+{
+  "name": "nexus-graphql-prisma",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "ts-node-dev --transpile-only --no-notify api/app.ts",
+    "build": "prisma generate && tsc",
+    "generate": "ts-node --transpile-only api/schema",
+    "test": "npm run generate && jest",
+    "migrate": "prisma migrate dev --preview-feature",
+    "gen:prisma": "prisma generate"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "globals": {
+      "ts-jest": {
+        "diagnostics": {
+          "warnOnly": true
+        }
+      }
+    },
+    "testEnvironment": "node"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^2.18.0",
+    "apollo-server": "^2.21.1",
+    "graphql": "^15.5.0",
+    "nexus": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.20",
+    "@types/sqlite3": "^3.1.7",
+    "get-port": "^5.1.1",
+    "graphql-request": "^3.4.0",
+    "jest": "^26.6.3",
+    "prettier": "^2.2.1",
+    "prisma": "^2.18.0",
+    "sqlite3": "^5.0.2",
+    "ts-jest": "^26.5.3",
+    "ts-node-dev": "^1.1.6",
+    "typescript": "^4.2.3"
+  }
+}
