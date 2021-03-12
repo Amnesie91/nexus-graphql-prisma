@@ -1,11 +1,8 @@
 // tests/__helpers.ts
 import { PrismaClient } from "@prisma/client";
 import { ServerInfo } from "apollo-server";
-import { execSync } from "child_process";
 import getPort, { makeRange } from "get-port";
 import { GraphQLClient } from "graphql-request";
-import { join } from "path";
-import { Database } from "sqlite3";
 import { db } from "../api/db";
 import { server } from "../api/server";
 
@@ -59,28 +56,13 @@ function graphqlTestContext() {
 }
 
 function prismaTestContext() {
-  const prismaBinary = join(__dirname, "..", "node_modules", ".bin", "prisma");
-  let prismaClient: null | PrismaClient = null;
-
+  let prismaClient: PrismaClient | null = null;
   return {
     async before() {
-      process.env.DATABASE_URL = "file:./test.db";
-
-      // Run the migrations to ensure our schema has the required structure
-      execSync(`${prismaBinary} db push --preview-feature`);
-
-      // Construct a new Prisma Client connected to the generated schema
       prismaClient = new PrismaClient();
-
       return prismaClient;
     },
     async after() {
-      // Drop the schema after the tests have completed
-      const client = new Database(":memory:");
-
-      await client.close();
-
-      // Release the Prisma Client connection
       await prismaClient?.$disconnect();
     },
   };
