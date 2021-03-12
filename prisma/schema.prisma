@@ -15,5 +15,4 @@ model Post {
   title     String
   body      String
   published Boolean
-
 }

@@ -5,11 +5,12 @@
   "main": "index.js",
   "scripts": {
     "dev": "ts-node-dev --transpile-only --no-notify api/app.ts",
-    "build": "prisma generate && tsc",
-    "generate": "ts-node --transpile-only api/schema",
+    "build": "npm run generate && tsc",
     "test": "npm run generate && jest",
     "migrate": "prisma migrate dev --preview-feature",
-    "gen:prisma": "prisma generate"
+    "gen:prisma": "prisma generate",
+    "gen:schema": "ts-node --transpile-only api/schema",
+    "generate": "npm run gen:prisma && npm run gen:schema"
   },
   "jest": {
     "preset": "ts-jest",
